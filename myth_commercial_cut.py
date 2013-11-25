@@ -23,19 +23,23 @@ def getCutlist(chanid, starttime):
 
 # Lossless export of each segment based on cut points
 # 
-def cutCommercials(filename):
+def cutCommercials():
 	pass
 
-def updateDB(filename):
+# Merge all output files in order
+def cutMerge():
+	pass
+
+def updateDB():
 	pass
 
 
 
 # How you call this script:
-# $myth_commercial_cut DIR FILE
+# $myth_commercial_cut CHANID STARTTIME
 if __name__ == "__main__":
 	if (len(sys.argv) !=3):
-		print('Error: Arguments\r\nUsage: myth_commercial_cut DIR FILE\r\n')
+		print('Error: Arguments\r\nUsage: myth_commercial_cut CHANID STARTTIME\r\n')
 		exit(1)
 	
 	filename = os.path.join(sys.argv[1], sys.argv[2])
