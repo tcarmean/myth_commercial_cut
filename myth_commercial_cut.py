@@ -14,11 +14,28 @@ except ImportError:
         print('You need to install the MySQLdb python module in order to use this script')
         exit(1)
 
+# Go into the database and get the list of cut points
+# Return an array of cut points
+def getCutlist(chanid, starttime):
+	# SELECT type,mark FROM recrodedmarkup WHERE chanid=$chanid AND starttime=$starttime AND (type=0 OR type=1) ORDER BY mark;
+	# Figure out how to feed that into mysqldb and fetch all rows into an array
+	pass
+
+# Lossless export of each segment based on cut points
+# 
+def cutCommercials(filename):
+	pass
+
+def updateDB(filename):
+	pass
+
+
+
 # How you call this script:
 # $myth_commercial_cut DIR FILE
 if __name__ == "__main__":
 	if (len(sys.argv) !=3):
-		print('This script only accepts 2 arguments! You passed in ' + len(sys.argv) + '!')
+		print('Error: Arguments\r\nUsage: myth_commercial_cut DIR FILE\r\n')
 		exit(1)
 	
 	filename = os.path.join(sys.argv[1], sys.argv[2])
