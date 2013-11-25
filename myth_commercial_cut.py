@@ -40,12 +40,15 @@ def updateDB():
 
 
 # How you call this script:
-# $myth_commercial_cut CHANID STARTTIME
+# $myth_commercial_cut DIR FILE CHANID STARTTIME
 if __name__ == "__main__":
-	if (len(sys.argv) !=3):
-		print('Error: Arguments\r\nUsage: myth_commercial_cut CHANID STARTTIME\r\n')
+	if (len(sys.argv) !=5):
+		print('Error: Arguments\r\nUsage: myth_commercial_cut DIR FILE CHANID STARTTIME\r\n')
 		exit(1)
 	
 	filename = os.path.join(sys.argv[1], sys.argv[2])
+	chanid = sys.argv[3]
+	starttime = sys.argv[4]
+
 	
 
