@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+from decimal import *
+
+getcontext().prec = 40
+
 import os
 import sys
 import base64
