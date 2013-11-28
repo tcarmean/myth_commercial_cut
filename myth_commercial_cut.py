@@ -78,6 +78,8 @@ class CommercialCutJob(object):
                 ORDER BY mark""",
                 (self.chanid,self.starttime))
             self.cutlist = cur.fetchall()
+            print(len(cutlist))
+            print(cutlist)
             self.printCutlist()
         except MySQLdb.Error, e:
             print('Error: ' + str(e.args[0]) + str(e.args[1]))
