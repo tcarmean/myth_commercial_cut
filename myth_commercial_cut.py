@@ -87,9 +87,9 @@ class CommercialCutJob(object):
             db.close()
 
     def printCutlist(self):
-        print('Type\tMark\r\n')
+        print("Type\tMark\r\n")
         for cl in self.cutlist:
-            print('%d\t%d',(cl[0],cl[1]))
+            print("%d\t%d\r\n",(cl[0],cl[1]))
 
 
 # How you call this script:
