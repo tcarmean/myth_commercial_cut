@@ -18,6 +18,7 @@ class testCommercialCutJob(unittest.TestCase):
         self.assertEqual(self.ccj.width, 1280)
         self.assertEqual(self.ccj.height, 720)
         self.assertEqual(self.ccj.fps, 59940)
+        self.assertIsNotNone(self.ccj.cutlist)
 
 def main():
     unittest.main()
