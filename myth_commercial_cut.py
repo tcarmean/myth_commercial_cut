@@ -21,7 +21,9 @@ except ImportError:
 # Every User Job is a CommercialCutJob
 class CommercialCutJob(object):
     def __init__(self):
-        pass
+        self.width = 1280
+        self.height = 720
+        self.fps = 59940
 
 # How you call this script:
 # $myth_commercial_cut DIR FILE CHANID STARTTIME
