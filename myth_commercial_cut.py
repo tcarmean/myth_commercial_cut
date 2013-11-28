@@ -36,11 +36,11 @@ class CommercialCutJob(object):
         config.seek(0, os.SEEK_SET)
         cp = ConfigParser.SafeConfigParser()
         cp.readfp(config)
-        self.user = cp.get('dummysection','dbusername')
-        self.passwd = cp.get('dummysection','dbpassword')
-        self.db = cp.get('dummysection','dbname')
-        self.host = cp.get('dummysection','dbhost')
-        self.port = int(cp.get('dummysection','dbport'))
+        self.user = cp.get('dummysection','DBUserName')
+        self.passwd = cp.get('dummysection','DBPassword')
+        self.db = cp.get('dummysection','DBName')
+        self.host = cp.get('dummysection','DBHostName')
+        self.port = int(cp.get('dummysection','DBPort'))
 
     def _jobSetup(self):
         try:
