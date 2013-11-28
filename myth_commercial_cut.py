@@ -24,6 +24,19 @@ class CommercialCutJob(object):
         self.width = 1280
         self.height = 720
         self.fps = 59940
+        self._dbSetup()
+
+    def _dbSetup(self):
+        config_path = os.path.expandUser('~') + os.sep + '.mythtv' + os.sep + 'mysql.txt'
+        config = StringIO.StringIO()
+        config.write('[dummysection]\n')
+        config.write(open(config_path, 'r').read())
+        config.seek(0, os.SEEK_SET)
+        cp = ConfigParser.SafeConfigParser()
+        cp.readfp(config)
+        self.user = cp.get('dummysection','dbusername')
+        self.passwd = cp.get('dummysection','dbpassword')
+        self.db = cp.get('dummysection','dbname')
 
 # How you call this script:
 # $myth_commercial_cut DIR FILE CHANID STARTTIME
