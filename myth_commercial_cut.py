@@ -46,6 +46,7 @@ class CommercialCutJob(object):
     def _jobSetup(self):
         try:
             db = MySQLdb.Connect(host=self.host,
+                    db=self.db,
                     user=self.user,
                     passwd=self.passwd,
                     port=self.port)
