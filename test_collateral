@@ -1,0 +1,59 @@
+Filename: 1234_20131127020000.mpg
+Title: New Girl
+Subtitle: Thanksgiving III
+ChanID: 1234
+Starttime: 2013-11-27 02:00:00
+
+Finding the Width:
+
+mysql> select data from recordedmarkup where chanid='1234' and starttime='2013-11-27 02:00:00' and type='30';
++------+
+| data |
++------+
+| 1280 |
++------+
+1 row in set (0.00 sec)
+
+Finding the Height:
+
+mysql> select data from recordedmarkup where chanid='1234' and starttime='2013-11-27 02:00:00' and type='31';
++------+
+| data |
++------+
+|  720 |
++------+
+1 row in set (0.00 sec)
+
+Finding the FPS (Myth takes the framerate and multiplies it by 1000. The framerate below is 59.94fps, which is legit.):
+
+mysql> select data from recordedmarkup where chanid='1234' and starttime='2013-11-27 02:00:00' and type='32';
++-------+
+| data  |
++-------+
+| 59940 |
++-------+
+1 row in set (0.00 sec)
+
+Finding the Cutlist (I think we need to run the generate cutlist userjob first):
+
+mysql> select type,mark from recordedmarkup where chanid='1234' and starttime='2013-11-27 02:00:00' and (type='0' or type='1') order by mark;
+Empty set (0.00 sec)
+
+YOU NEED TO GENERATE THE CUTLIST FIRST:
+
+mysql> select type,mark from recordedmarkup where chanid='1234' and starttime='2013-11-27 02:00:00' and (type='0' or type='1') order by mark;
++------+-------+
+| type | mark  |
++------+-------+
+|    1 |     0 |
+|    0 |  7006 |
+|    1 | 27343 |
+|    0 | 36373 |
+|    1 | 55872 |
+|    0 | 69510 |
+|    1 | 82333 |
+|    0 | 91811 |
++------+-------+
+8 rows in set (0.00 sec)
+
+
