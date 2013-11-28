@@ -5,7 +5,7 @@ import unittest
 
 class testCommercialCutJob(unittest.TestCase):
     def setUp(self):
-        self.ccj = CommercialCutJob()
+        self.ccj = CommercialCutJob(1234, '2013-11-27 02:00:00')
 
     def testProps(self):
         self.assertEqual(self.ccj.width, 1280)
@@ -16,6 +16,8 @@ class testCommercialCutJob(unittest.TestCase):
         self.assertIsNotNone(self.ccj.user)
         self.assertIsNotNone(self.ccj.passwd)
         self.assertIsNotNone(self.ccj.db)
+        self.assertIsNotNone(self.ccj.host)
+        self.assertIsNotNone(self.ccj.port)
 
 def main():
     unittest.main()

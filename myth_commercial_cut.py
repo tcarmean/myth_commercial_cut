@@ -20,10 +20,12 @@ except ImportError:
 
 # Every User Job is a CommercialCutJob
 class CommercialCutJob(object):
-    def __init__(self):
-        self.width = 1280
-        self.height = 720
-        self.fps = 59940
+    def __init__(self, chanid, starttime):
+        #self.width = 1280
+        #self.height = 720
+        #self.fps = 59940
+        self.chanid = chanid
+        self.starttime = starttime
         self._dbSetup()
 
     def _dbSetup(self):
@@ -37,6 +39,46 @@ class CommercialCutJob(object):
         self.user = cp.get('dummysection','dbusername')
         self.passwd = cp.get('dummysection','dbpassword')
         self.db = cp.get('dummysection','dbname')
+        self.host = cp.get('dummysection','dbhost')
+        self.port = int(cp.get('dummysection','dbport'))
+
+    def _jobSetup(self):
+        try:
+            db = MySQLdb.Connect(host=self.host,
+                    user=self.user,
+                    passwd=self.passwd,
+                    port=self.port)
+            db.autocommit(True)
+            cur = db.cursor()
+            cur.execute("""SELECT data
+                FROM recordedmarkup
+                WHERE chanid=%s
+                AND startime=%s
+                AND type=30""",
+                (self.chanid,self.starttime))
+            self.width = cur.fetchone()
+            cur.execute("""SELECT data
+                FROM recordedmarkup
+                WHERE chanid=%s
+                AND startime=%s
+                AND type=31""",
+                (self.chanid,self.starttime))
+            self.height = cur.fetchone()
+            cur.execute("""SELECT data
+                FROM recordedmarkup
+                WHERE chanid=%s
+                AND startime=%s
+                AND type=32""",
+                (self.chanid,self.starttime))
+            self.fps = cur.fetchone()
+        except MySQLdb.Error, e:
+            print('Error: ' + e.args[0] + e.args[1])
+            exit(1)
+        finally:
+            cur.close()
+            db.close()
+
+
 
 # How you call this script:
 # $myth_commercial_cut DIR FILE CHANID STARTTIME
