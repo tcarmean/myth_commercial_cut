@@ -25,6 +25,7 @@ class CommercialCutJob(object):
         self.starttime = starttime
         self._dbSetup()
         self._jobSetup()
+        self._getCutlist()
 
     def _dbSetup(self):
         config_path = os.path.expanduser('~') + os.sep + '.mythtv' + os.sep + 'mysql.txt'
@@ -70,23 +71,39 @@ class CommercialCutJob(object):
                 AND type=32""",
                 (self.chanid,self.starttime))
             self.fps = cur.fetchone()[0]
-            cur.execute("""SELECT type,mark
-                FROM recordedmarkup
-                WHERE chanid=%s
-                AND starttime=%s
-                AND (type=0 AND type=1)
-                ORDER BY mark""",
-                (self.chanid,self.starttime))
-            self.cutlist = cur.fetchall()
-            print(len(self.cutlist))
-            print(self.cutlist)
-            self.printCutlist()
-        except MySQLdb.Error, e:
+       except MySQLdb.Error, e:
             print('Error: ' + str(e.args[0]) + str(e.args[1]))
             exit(1)
         finally:
             cur.close()
             db.close()
+
+    def _getCutlist(self):
+        try:
+            db = MySQLdb.connect(host=self.host,
+                    db=self.db,
+                    user=self.user,
+                    passwd=self.passwd,
+                    port=self.port)
+            cur = db.cursor()
+            cur.execute("""SELECT type,mark
+                FROM recordedmarkup
+                WHERE chanid=%s
+                AND starttime=%s
+                AND (type=0 OR type=1)
+                ORDER BY mark
+                """,
+                (self.chanid,self.starttime))
+            self.cutlist = cur.fetchall()
+            print(len(self.cutlist))
+            print(self.cutlist)
+        except MySQLdb.Error, e:
+            print('Error: ' + str(e.args[0] + str(e.args[1])))
+            exit(1)
+        finally:
+            cur.close()
+            db.close()
+
 
     def printCutlist(self):
         print("Type\tMark\r\n")
