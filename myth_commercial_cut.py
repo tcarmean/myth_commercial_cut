@@ -109,7 +109,7 @@ class CommercialCutJob(object):
     def printCutlist(self):
         print("Type\tMark\r\n")
         for cl in self.cutlist:
-            print(cl[0] + '\t' + cl[1] + '\r\n')
+            print("%d\t%d\r\n" % (cl[0],cl[1]))
 
 
 # How you call this script:
