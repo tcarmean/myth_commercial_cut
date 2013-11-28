@@ -73,6 +73,14 @@ class CommercialCutJob(object):
                 AND type=32""",
                 (self.chanid,self.starttime))
             self.fps = cur.fetchone()[0]
+            cur.execute("""SELECT type,mark
+                FROM recordedmarkup
+                WHERE chanid=%s
+                AND starttime=%s
+                AND (type=0 AND type=1)
+                ORDER BY mark""",
+                (self.chanid,self.starttime))
+            self.cutlist = cur.fetchall()
         except MySQLdb.Error, e:
             print('Error: ' + str(e.args[0]) + str(e.args[1]))
             exit(1)
