@@ -55,21 +55,21 @@ class CommercialCutJob(object):
             cur.execute("""SELECT data
                 FROM recordedmarkup
                 WHERE chanid=%s
-                AND startime=%s
+                AND starttime=%s
                 AND type=30""",
                 (self.chanid,self.starttime))
             self.width = cur.fetchone()
             cur.execute("""SELECT data
                 FROM recordedmarkup
                 WHERE chanid=%s
-                AND startime=%s
+                AND starttime=%s
                 AND type=31""",
                 (self.chanid,self.starttime))
             self.height = cur.fetchone()
             cur.execute("""SELECT data
                 FROM recordedmarkup
                 WHERE chanid=%s
-                AND startime=%s
+                AND starttime=%s
                 AND type=32""",
                 (self.chanid,self.starttime))
             self.fps = cur.fetchone()
