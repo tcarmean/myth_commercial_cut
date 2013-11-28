@@ -27,7 +27,7 @@ class CommercialCutJob(object):
         self._dbSetup()
 
     def _dbSetup(self):
-        config_path = os.path.expandUser('~') + os.sep + '.mythtv' + os.sep + 'mysql.txt'
+        config_path = os.path.expanduser('~') + os.sep + '.mythtv' + os.sep + 'mysql.txt'
         config = StringIO.StringIO()
         config.write('[dummysection]\n')
         config.write(open(config_path, 'r').read())
