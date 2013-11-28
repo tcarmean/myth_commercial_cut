@@ -27,6 +27,7 @@ class CommercialCutJob(object):
         self.chanid = chanid
         self.starttime = starttime
         self._dbSetup()
+        self._jobSetup()
 
     def _dbSetup(self):
         config_path = os.path.expanduser('~') + os.sep + '.mythtv' + os.sep + 'mysql.txt'
