@@ -71,7 +71,7 @@ class CommercialCutJob(object):
                 AND type=32""",
                 (self.chanid,self.starttime))
             self.fps = cur.fetchone()[0]
-       except MySQLdb.Error, e:
+        except MySQLdb.Error, e:
             print('Error: ' + str(e.args[0]) + str(e.args[1]))
             exit(1)
         finally:
