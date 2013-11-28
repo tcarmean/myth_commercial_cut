@@ -21,9 +21,6 @@ except ImportError:
 # Every User Job is a CommercialCutJob
 class CommercialCutJob(object):
     def __init__(self, chanid, starttime):
-        #self.width = 1280
-        #self.height = 720
-        #self.fps = 59940
         self.chanid = chanid
         self.starttime = starttime
         self._dbSetup()
@@ -81,6 +78,7 @@ class CommercialCutJob(object):
                 ORDER BY mark""",
                 (self.chanid,self.starttime))
             self.cutlist = cur.fetchall()
+            self.printCutlist()
         except MySQLdb.Error, e:
             print('Error: ' + str(e.args[0]) + str(e.args[1]))
             exit(1)
@@ -88,6 +86,8 @@ class CommercialCutJob(object):
             cur.close()
             db.close()
 
+    def printCutlist(self):
+        print('Type\tMark\r\n')
 
 
 # How you call this script:
