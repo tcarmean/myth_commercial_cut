@@ -12,6 +12,10 @@ class testCommercialCutJob(unittest.TestCase):
         self.assertEqual(self.ccj.height, 720)
         self.assertEqual(self.ccj.fps, 59940)
 
+    def testDBCredentials(self):
+        self.assertIsNotNone(self.ccj.user)
+        self.assertIsNotNone(self.ccj.passwd)
+        self.assertIsNotNone(self.ccj.db)
 
 def main():
     unittest.main()
