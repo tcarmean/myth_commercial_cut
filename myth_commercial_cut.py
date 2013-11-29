@@ -107,13 +107,22 @@ class CommercialCutJob(object):
 
     def printCutlist(self):
         print("Type\tMark\r\n")
-        for cl in self.cutlist:
-            time = Decimal(cl[1]) / Decimal(self.fps) * Decimal(1000)
-            time = ceil(time * 1000) / 1000.0
-            if cl[0] == 0:
-                print('Frame %d is at time %s and type MARK_CUT_END\r\n' % (cl[1],str(time)))
-            elif cl[0] == 1:
-                print('Frame %d is at time %s and type MARK_CUT_START\r\n' % (cl[1],str(time)))
+        # This should allow access to the previous tuple in cutlist
+        slow_seek = 0.0
+        skip = 0
+        for i in range(len(self.cutlist)):
+            # MARK_CUT_END
+            if self.cutlist[i][0] == 0:
+                time = Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
+                slow_seek = ceil(time * 1000) / 1000.0
+            else:
+                # need to get the duration
+                dur = (Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
+                dur = ceil(dur * 1000) / 1000.0
+                if slow_seek > 30.0:
+                    skip = slow_seek - 30.0
+                    slow_seek = 30.0
+                print('ffmpeg -ss %d -i self.filename -ss %d -t %d -vcodec copy -acodec copy /tmp/outfile-%d.mpg' % (skip,slow_seek,dur,i))
          
 
 
