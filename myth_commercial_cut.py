@@ -109,9 +109,9 @@ class CommercialCutJob(object):
         for cl in self.cutlist:
             time = Decimal(cl[1]) / Decimal(self.fps) * Decimal(1000)
             if cl[0] == 0:
-                print('Frame %d is at time %d and type MARK_CUT_END\r\n' % (cl[1],time))
+                print('Frame %d is at time %s and type MARK_CUT_END\r\n' % (cl[1],str(time)))
             elif cl[0] == 1:
-                print('Frame %d is at time %d and type MARK_CUT_START\r\n' % (cl[1],time))
+                print('Frame %d is at time %s and type MARK_CUT_START\r\n' % (cl[1],str(time)))
          
 
 
