@@ -122,7 +122,7 @@ class CommercialCutJob(object):
                 if slow_seek > 30.0:
                     skip = slow_seek - 30.0
                     slow_seek = 30.0
-                print('ffmpeg -ss %d -i self.filename -ss %d -t %d -vcodec copy -acodec copy /tmp/outfile-%d.mpg' % (skip,slow_seek,dur,i))
+                print('ffmpeg -ss %s -i self.filename -ss %s -t %s -vcodec copy -acodec copy /tmp/outfile-%d.mpg' % (str(skip),str(slow_seek),str(dur),i))
          
 
 
