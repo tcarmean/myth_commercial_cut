@@ -109,7 +109,7 @@ class CommercialCutJob(object):
         print("Type\tMark\r\n")
         for cl in self.cutlist:
             time = Decimal(cl[1]) / Decimal(self.fps) * Decimal(1000)
-            time = ceil(time * 100) / 100.0
+            time = ceil(time * 1000) / 1000.0
             if cl[0] == 0:
                 print('Frame %d is at time %s and type MARK_CUT_END\r\n' % (cl[1],str(time)))
             elif cl[0] == 1:
