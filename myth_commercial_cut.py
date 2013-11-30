@@ -122,7 +122,7 @@ class CommercialCutJob(object):
                 if slow_seek > 30.0:
                     skip = slow_seek - 30.0
                     slow_seek = 30.0
-                print('ffmpeg -i self.filename -ss %s -t %s -vcodec copy -acodec copy /tmp/outfile-%d.mpg' % (str(skip),str(dur),i))
+                print('avconv -i /var/lib/mythtv/recordings/1234_20131127020000.mpg -ss %s -t %s -vcodec copy -acodec copy /tmp/cc_test/ng_cc-%d.mpg' % (str(skip),str(dur),i))
          
 
 
