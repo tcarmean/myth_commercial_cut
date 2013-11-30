@@ -113,11 +113,13 @@ class CommercialCutJob(object):
         for i in range(len(self.cutlist)):
             # MARK_CUT_END
             if self.cutlist[i][0] == 0:
+                i++
                 time = Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
                 slow_seek = ceil(time * 1000) / 1000.0
             else:
+                i++
                 # need to get the duration
-                dur = (Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
+                dur = (Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
                 dur = ceil(dur * 1000) / 1000.0
                 if slow_seek > 30.0:
                     skip = slow_seek - 30.0
