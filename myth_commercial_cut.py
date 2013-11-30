@@ -107,7 +107,6 @@ class CommercialCutJob(object):
 
     def printCutlist(self):
         print("Type\tMark\r\n")
-        # This should allow access to the previous tuple in cutlist
         slow_seek = 0.0
         skip = 0
         for i in range(len(self.cutlist)):
@@ -117,7 +116,7 @@ class CommercialCutJob(object):
                 slow_seek = ceil(time * 1000) / 1000.0
             else:
                 # need to get the duration
-                dur = (Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
+                dur = (Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
                 dur = ceil(dur * 1000) / 1000.0
                 #if slow_seek > 30.0:
                 #    skip = slow_seek - 30.0
