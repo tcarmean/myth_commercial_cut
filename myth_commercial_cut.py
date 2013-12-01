@@ -120,17 +120,10 @@ class CommercialCutJob(object):
                     dur = (Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
                     dur = ceil(dur * 1000) / 1000.0
                 else:
-                    if i == (len(self.cutlist) - 1):
-                        # i think this means we might get commercials in the last segment
-                        dur = 0
-                    else:
-                        # need to get the duration
-                        dur = (Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
-                        dur = ceil(dur * 1000) / 1000.0
-                if dur > 0:
-                    print('avconv -i /var/lib/mythtv/recordings/1234_20131127020000.mpg -ss %s -t %s -vcodec copy -acodec copy /tmp/cc_test/ng_cc-%d.mpg' % (str(slow_seek),str(dur),i))
-                else:
-                    print('avconv -i /var/lib/mythtv/recordings/1234_20131127020000.mpg -ss %s -vcodec copy -acodec copy /tmp/cc_test/ng_cc-%d.mpg' % (str(slow_seek),i))
+                    # need to get the duration
+                    dur = (Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
+                    dur = ceil(dur * 1000) / 1000.0
+                print('avconv -i /var/lib/mythtv/recordings/1234_20131127020000.mpg -ss %s -t %s -vcodec copy -acodec copy /tmp/cc_test/ng_cc-%d.mpg' % (str(slow_seek),str(dur),i))
          
 
 
