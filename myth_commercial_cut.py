@@ -115,11 +115,11 @@ class CommercialCutJob(object):
             seek = 0.0
             dur = 0.0
             if self.cutlist[i][0] == 1:
-                seek = Decimal(cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
-                dur = (Decimal(cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(seek)
+                seek = Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
+                dur = (Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(seek)
                 seek = ceil(seek * 1000) / 1000.0
                 dur = ceil(seek * 1000) / 1000.0
-            self._createSegment(slow_seek, dur, i)
+            self._createSegment(seek, dur, i)
 
     def _createSegment(self, seek, dur, i):
         print('In CommercialCutJob._createSegment\r\n')
