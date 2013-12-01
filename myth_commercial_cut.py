@@ -140,7 +140,7 @@ class CommercialCutJob(object):
             # create the directory that is named for the recording
             os.makedirs(temp_dir)
         tf = fn[:-4] + '-' + str(i) + '.mpg'
-        temp_file = os.path.join(temp_dir,tf)
+        temp_file = os.path.join(self.temp_dir,tf)
         self.segments.append(temp_file)
         # This is the command we will use to create the segment
         cmdline = [
