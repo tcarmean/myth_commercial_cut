@@ -241,4 +241,5 @@ if __name__ == "__main__":
     ccj.cutCommercials()
     ccj.printSegments()
     ccj.transcodeSegments()
+    ccj.printSegments()
 #    ccj.cleanup()
