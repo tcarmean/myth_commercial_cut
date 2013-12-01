@@ -111,25 +111,15 @@ class CommercialCutJob(object):
 
     def cutCommercials(self):
         print('In CommercialCutJob.cutCommercials\r\n')
-        slow_seek = 0.0
-        skip = 0
         for i in range(len(self.cutlist)):
-            # MARK_CUT_END
-            if self.cutlist[i][0] == 0:
-                time = Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
-                slow_seek = ceil(time * 1000) / 1000.0
-            else:
-                if i == 0:
-                    # Special case
-                    dur = (Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
-                    dur = ceil(dur * 1000) / 1000.0
-                else:
-                    # need to get the duration
-                    dur = (Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
-                    dur = ceil(dur * 1000) / 1000.0
-                print('avconv -i /var/lib/mythtv/recordings/1234_20131127020000.mpg -ss %s -t %s -vcodec copy -acodec copy /tmp/cc_test/ng_cc-%d.mpg' % (str(slow_seek),str(dur),i))
-                # Here we call an internal method to create the intermediate files
-                self._createSegment(slow_seek, dur, i)
+            seek = 0.0
+            dur = 0.0
+            if self.cutlist[i][0] == 1:
+                seek = Decimal(cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
+                dur = (Decimal(cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(seek)
+                seek = ceil(seek * 1000) / 1000.0
+                dur = ceil(seek * 1000) / 1000.0
+            self._createSegment(slow_seek, dur, i)
 
     def _createSegment(self, seek, dur, i):
         print('In CommercialCutJob._createSegment\r\n')
