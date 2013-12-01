@@ -222,13 +222,13 @@ class CommercialCutJob(object):
         cmdline = ['/usr/bin/mkvmerge','-o']
         dn, fn = os.path.split(self.filename)
         cmdline.append(self.temp_dir + fn[:-4] + '.mkv')
-        cmdline.append(self.segments[0])
+        cmdline.append(self.segments[0][:-4] + '.mkv')
         for i in range(len(self.segments)):
             if i == 0:
                 pass
             else:
                 cmdline.append('+')
-                cmdline.append(self.segments[i])
+                cmdline.append(self.segments[i][:-4] + '.mkv')
         try:
             subprocess.check_call(cmdline)
         except subprocess.CalledProcessError, e:
