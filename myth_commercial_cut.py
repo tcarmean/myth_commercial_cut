@@ -175,8 +175,6 @@ class CommercialCutJob(object):
                     '/usr/bin/avconv',
                     '-i',
                     segment,
-                    '-o',
-                    tf,
                     '-e',
                     'x264',
                     '--x264-preset',
@@ -201,7 +199,8 @@ class CommercialCutJob(object):
                     str(self.width),
                     '-l',
                     str(self.height),
-                    '--decomb'
+                    '--decomb',
+                    tf
                     ]
             try:
                 subprocess.check_call(cmdline)
