@@ -175,7 +175,7 @@ class CommercialCutJob(object):
                     '/usr/bin/HandBrakeCLI',
                     '-i',
                     segment,
-                    -o,
+                    '-o',
                     tf,
                     '-f',
                     'mkv',
