@@ -5,7 +5,7 @@ import unittest
 
 class testCommercialCutJob(unittest.TestCase):
     def setUp(self):
-        self.ccj = CommercialCutJob(1234, '2013-11-27 02:00:00')
+        self.ccj = CommercialCutJob('/var/lib/mythtv/recordings/1234_20131127020000.mpg',1234, '2013-11-27 02:00:00')
 
     def testDBCredentials(self):
         self.assertIsNotNone(self.ccj.user)

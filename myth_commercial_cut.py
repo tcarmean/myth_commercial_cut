@@ -21,7 +21,8 @@ except ImportError:
 
 # Every User Job is a CommercialCutJob
 class CommercialCutJob(object):
-    def __init__(self, chanid, starttime):
+    def __init__(self, filename, chanid, starttime):
+        self.filename = filename
         self.chanid = chanid
         self.starttime = starttime
         self._dbSetup()
@@ -96,7 +97,6 @@ class CommercialCutJob(object):
                 """,
                 (self.chanid,self.starttime))
             self.cutlist = cur.fetchall()
-            self.printCutlist()
         except MySQLdb.Error, e:
             print('Error: ' + str(e.args[0] + str(e.args[1])))
             exit(1)
@@ -104,9 +104,7 @@ class CommercialCutJob(object):
             cur.close()
             db.close()
 
-
-    def printCutlist(self):
-        print("Type\tMark\r\n")
+    def cutCommercials(self):
         slow_seek = 0.0
         skip = 0
         for i in range(len(self.cutlist)):
@@ -124,7 +122,43 @@ class CommercialCutJob(object):
                     dur = (Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(slow_seek)
                     dur = ceil(dur * 1000) / 1000.0
                 print('avconv -i /var/lib/mythtv/recordings/1234_20131127020000.mpg -ss %s -t %s -vcodec copy -acodec copy /tmp/cc_test/ng_cc-%d.mpg' % (str(slow_seek),str(dur),i))
-         
+                # Here we call an internal method to create the intermediate files
+                self._createSegment(slow_seek, dur, i)
+
+    def _createSegment(self, seek, dur, i):
+        path, fn = os.path.split(self.filename)
+        temp_dir = '/tmp/' + fn[:-4]
+
+        if not os.path.exists(temp_dir):
+            # create the directory that is named for the recording
+            os.mkdirs(temp_dir)
+        tf = str(i) + '.mpg'
+        temp_file = os.path.join(temp_dir,tf)
+        # This is the command we will use to create the segment
+        cmdline = [
+                '/usr/bin/avconv',
+                '-i',
+                self.filename,
+                '-ss',
+                seek,
+                '-t',
+                dur,
+                '-vcodec',
+                'copy',
+                '-acodec',
+                'copy',
+                temp_file
+                ]
+        try:
+            #stuff
+            subprocess.check_call(cmdline)
+        except subprocess.CalledProcessError, e:
+            print(e.cmd)
+            print(e.returncode)
+            exit(1)
+
+
+
 
 
 # How you call this script:
@@ -137,3 +171,5 @@ if __name__ == "__main__":
 	filename = os.path.join(sys.argv[1], sys.argv[2])
 	chanid = sys.argv[3]
 	starttime = sys.argv[4]
+    ccj = CommercialCutJob(filename, chanid, starttime)
+    ccj.cutCommercials
