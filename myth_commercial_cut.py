@@ -165,6 +165,51 @@ class CommercialCutJob(object):
             print(e.returncode)
             exit(1)
 
+    def transcodeSegments(self):
+        print('In CommercialCutJob.transcodeSegments\r\n')
+        for segment in self.segments:
+            temp_dir, temp_file = os.path.split(segment)
+            temp_file = temp_file[:-4] + '.mkv'
+            tf = os.path.join(temp_dir,temp_file)
+            cmdline = [
+                    '/usr/bin/avconv',
+                    '-i',
+                    segment,
+                    '-o',
+                    tf,
+                    '-e',
+                    'x264',
+                    '--x264-preset',
+                    'superfast',
+                    '--x264-profile',
+                    'high',
+                    '--x264-tune',
+                    'film',
+                    '-q',
+                    '30',
+                    '-E',
+                    'lame',
+                    '--ac',
+                    '2',
+                    '--ab',
+                    '128',
+                    '--audio-fallback',
+                    'faac',
+                    '--crop',
+                    '0:0:0:0',
+                    '-w',
+                    str(self.width),
+                    '-l',
+                    str(self.height),
+                    '--decomb'
+                    ]
+            try:
+                subprocess.check_call(cmdline)
+            except subprocess.CalledProcessError, e:
+                print(e.cmd)
+                print(e.returncode)
+                exit(1)
+
     def printSegments(self):
         print('Segment List:\r\n')
         for segment in self.segments:
@@ -185,4 +230,5 @@ if __name__ == "__main__":
     ccj = CommercialCutJob(filename, chanid, starttime)
     ccj.cutCommercials()
     ccj.printSegments()
-    ccj.cleanup()
+    ccj.transcodeSegments()
+#    ccj.cleanup()
