@@ -211,6 +211,10 @@ class CommercialCutJob(object):
                 print(e.cmd)
                 print(e.returncode)
                 exit(1)
+            # Don't need this segment anymore so clean it up
+            os.remove(segment)
+            # Update the filename to be a .mkv extension
+            segment = segment[:-4] + '.mkv'
 
     def printSegments(self):
         print('Segment List:\r\n')
