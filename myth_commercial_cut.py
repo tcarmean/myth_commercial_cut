@@ -173,4 +173,4 @@ if __name__ == "__main__":
     chanid = sys.argv[3]
     starttime = sys.argv[4]
     ccj = CommercialCutJob(filename, chanid, starttime)
-    ccj.cutCommercials
+    ccj.cutCommercials()
