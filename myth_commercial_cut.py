@@ -172,9 +172,13 @@ class CommercialCutJob(object):
             temp_file = temp_file[:-4] + '.mkv'
             tf = os.path.join(temp_dir,temp_file)
             cmdline = [
-                    '/usr/bin/avconv',
+                    '/usr/bin/HandBrakeCLI',
                     '-i',
                     segment,
+                    -o,
+                    tf,
+                    '-f',
+                    'mkv',
                     '-e',
                     'x264',
                     '--x264-preset',
@@ -199,8 +203,7 @@ class CommercialCutJob(object):
                     str(self.width),
                     '-l',
                     str(self.height),
-                    '--decomb',
-                    tf
+                    '--decomb'
                     ]
             try:
                 subprocess.check_call(cmdline)
