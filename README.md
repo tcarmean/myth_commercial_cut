@@ -8,11 +8,13 @@ Task List:
 - [x] Pull needed metadata from the database
 - [ ] Check that the cutlist has actually be generated
 - [x] Create working directory for transient files
-- [ ] Remove working directory and transient files when done
+- [ ] (!!!)Remove working directory and transient files when done
 
-Requirements:
+Requirements (Ubuntu package names):
 
-mkvtoolnix (ubuntu package)
+libav-tools
+python-mysqldb
+mkvtoolnix
 
 This is a python take of the script created by Reuben Crane:
 
