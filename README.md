@@ -8,7 +8,7 @@ Task List:
 - [x] Pull needed metadata from the database
 - [ ] Check that the cutlist has actually be generated
 - [x] Create working directory for transient files
-- [ ] Remove working directory and transient files when done (WARNING)
+- [x] Remove working directory and transient files when done (WARNING)
 
 Requirements (Ubuntu package names):
 

@@ -146,7 +146,7 @@ class CommercialCutJob(object):
         cmdline = [
                 '/usr/bin/avconv',
                 '-i',
-                self.f)lename,
+                self.filename,
                 '-ss',
                 str(seek),
                 '-t',
