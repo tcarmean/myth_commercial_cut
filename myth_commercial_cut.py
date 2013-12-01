@@ -256,4 +256,5 @@ if __name__ == "__main__":
     ccj.printSegments()
     ccj.transcodeSegments()
     ccj.printSegments()
+    ccj.mergeSegments()
 #    ccj.cleanup()
