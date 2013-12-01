@@ -22,6 +22,7 @@ except ImportError:
 # Every User Job is a CommercialCutJob
 class CommercialCutJob(object):
     def __init__(self, filename, chanid, starttime):
+        print('In CommercialCutJob.__init__\r\n')
         self.filename = filename
         self.chanid = chanid
         self.starttime = starttime
@@ -30,6 +31,7 @@ class CommercialCutJob(object):
         self._getCutlist()
 
     def _dbSetup(self):
+        print('In CommercialCutJob._dbSetup\r\n')
         config_path = os.path.expanduser('~') + os.sep + '.mythtv' + os.sep + 'mysql.txt'
         config = StringIO.StringIO()
         config.write('[dummysection]\n')
@@ -44,6 +46,7 @@ class CommercialCutJob(object):
         self.port = int(cp.get('dummysection','DBPort'))
 
     def _jobSetup(self):
+        print('In CommercialCutJob._jobSetup\r\n')
         try:
             db = MySQLdb.Connect(host=self.host,
                     db=self.db,
@@ -81,6 +84,7 @@ class CommercialCutJob(object):
             db.close()
 
     def _getCutlist(self):
+        print('In CommercialCutJob._getCutlist\r\n')
         try:
             db = MySQLdb.connect(host=self.host,
                     db=self.db,
@@ -105,6 +109,7 @@ class CommercialCutJob(object):
             db.close()
 
     def cutCommercials(self):
+        print('In CommercialCutJob.cutCommercials\r\n')
         slow_seek = 0.0
         skip = 0
         for i in range(len(self.cutlist)):
@@ -126,6 +131,7 @@ class CommercialCutJob(object):
                 self._createSegment(slow_seek, dur, i)
 
     def _createSegment(self, seek, dur, i):
+        print('In CommercialCutJob._createSegment\r\n')
         path, fn = os.path.split(self.filename)
         temp_dir = '/tmp/' + fn[:-4]
 
@@ -156,10 +162,6 @@ class CommercialCutJob(object):
             print(e.cmd)
             print(e.returncode)
             exit(1)
-
-
-
-
 
 # How you call this script:
 # $myth_commercial_cut DIR FILE CHANID STARTTIME
