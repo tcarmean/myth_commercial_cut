@@ -221,7 +221,7 @@ class CommercialCutJob(object):
         # mkvmerge -o foo.mkv file0.mkv + file1.mkv + file2.mkv ...
         cmdline = ['/usr/bin/mkvmerge','-o']
         dn, fn = os.path.split(self.filename)
-        cmdline.append(self.temp_dir + fn[:-4] + '.mkv')
+        cmdline.append(self.temp_dir + '/' + fn[:-4] + '.mkv')
         cmdline.append(self.segments[0][:-4] + '.mkv')
         for i in range(len(self.segments)):
             if i == 0:
