@@ -234,6 +234,7 @@ class CommercialCutJob(object):
         except subprocess.CalledProcessError, e:
             print(e.cmd)
             print(e.returncode)
+            exit(1)
 
     def printSegments(self):
         print('Segment List:\r\n')
