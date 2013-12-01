@@ -11,10 +11,10 @@ It would appear that mythtranscode --honorcutlist no longer works for transcodin
 
 Requirements (Ubuntu package names):
 
-libav-tools
-python-mysqldb
-mkvtoolnix
-handbrake-cli
+- libav-tools
+- python-mysqldb
+- mkvtoolnix
+- handbrake-cli
 
 Features:
 
