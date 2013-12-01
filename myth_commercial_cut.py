@@ -134,7 +134,7 @@ class CommercialCutJob(object):
     def _createSegment(self, seek, dur, i):
         print('In CommercialCutJob._createSegment\r\n')
         path, fn = os.path.split(self.filename)
-        temp_dir = '/tmp/' + fn[:-4]
+        self.temp_dir = '/tmp/' + fn[:-4]
 
         if not os.path.exists(temp_dir):
             # create the directory that is named for the recording
@@ -146,7 +146,7 @@ class CommercialCutJob(object):
         cmdline = [
                 '/usr/bin/avconv',
                 '-i',
-                self.filename,
+                self.f)lename,
                 '-ss',
                 str(seek),
                 '-t',
@@ -170,6 +170,9 @@ class CommercialCutJob(object):
         for segment in self.segments:
             print('%s' % (segment,))
 
+    def cleanup(self):
+        shutil.rmtree(self.temp_dir)
+
 # How you call this script:
 # $myth_commercial_cut DIR FILE CHANID STARTTIME
 if __name__ == "__main__":
@@ -182,3 +185,4 @@ if __name__ == "__main__":
     ccj = CommercialCutJob(filename, chanid, starttime)
     ccj.cutCommercials()
     ccj.printSegments()
+    ccj.cleanup()
