@@ -3,6 +3,13 @@ myth_commercial_cut
 
 Cut commercials from a MythTV Recording and Transcode in Place
 
+Task List:
+
+- [] Pull needed metadata from the database
+- [] Check that the cutlist has actually be generated
+- [] Create working directory for transient files
+- [] Remove working directory and transient files when done
+
 Requirements:
 
 mkvtoolnix (ubuntu package)
