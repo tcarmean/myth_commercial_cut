@@ -33,5 +33,5 @@ Task List:
 - [ ] Check that the cutlist has actually be generated
 - [x] Create working directory for transient files
 - [x] Remove working directory and transient files when done
-- [ ] Tweak the transcode settings for segments (~~~both~~~ video ~~~and audio~~~). Current output is pretty low quality.
+- [ ] Tweak the transcode settings for segments (~~both~~ video ~~and audio~~). Current output is pretty low quality.
 - [ ] Error checking!!!
