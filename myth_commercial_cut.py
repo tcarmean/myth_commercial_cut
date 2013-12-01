@@ -26,6 +26,7 @@ class CommercialCutJob(object):
         self.filename = filename
         self.chanid = chanid
         self.starttime = starttime
+        self.segments = []
         self._dbSetup()
         self._jobSetup()
         self._getCutlist()
@@ -140,6 +141,7 @@ class CommercialCutJob(object):
             os.makedirs(temp_dir)
         tf = fn[:-4] + '-' + str(i) + '.mpg'
         temp_file = os.path.join(temp_dir,tf)
+        self.segments.append(temp_file)
         # This is the command we will use to create the segment
         cmdline = [
                 '/usr/bin/avconv',
@@ -163,6 +165,11 @@ class CommercialCutJob(object):
             print(e.returncode)
             exit(1)
 
+    def printSegments(self):
+        print('Segment List:\r\n')
+        for segment in self.segments:
+            print('%s' % (segment,))
+
 # How you call this script:
 # $myth_commercial_cut DIR FILE CHANID STARTTIME
 if __name__ == "__main__":
@@ -174,3 +181,4 @@ if __name__ == "__main__":
     starttime = sys.argv[4]
     ccj = CommercialCutJob(filename, chanid, starttime)
     ccj.cutCommercials()
+    ccj.printSegments()
