@@ -216,6 +216,10 @@ class CommercialCutJob(object):
             # Update the filename to be a .mkv extension
             segment = segment[:-4] + '.mkv'
 
+    def mergeSegments(self):
+        # mkvmerge -o foo.mkv file0.mkv + file1.mkv + file2.mkv ...
+        pass
+
     def printSegments(self):
         print('Segment List:\r\n')
         for segment in self.segments:
