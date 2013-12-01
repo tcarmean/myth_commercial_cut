@@ -218,7 +218,21 @@ class CommercialCutJob(object):
 
     def mergeSegments(self):
         # mkvmerge -o foo.mkv file0.mkv + file1.mkv + file2.mkv ...
-        pass
+        cmdline = ['/usr/bin/mkvmerge','-o']
+        dn, fn = os.split(self.filename)
+        cmdline.append(self.temp_dir + fn[:-4] + '.mkv')
+        cmdline.append(self.segments[0])
+        for i in range(len(self.segments)):
+            if i == 0:
+                pass
+            else:
+                cmdline.append('+')
+                cmdline.append(self.segments[i])
+        try:
+            subprocess.check_call(cmdline)
+        except subprocess.CalledProcessError, e:
+            print(e.cmd)
+            print(e.returncode)
 
     def printSegments(self):
         print('Segment List:\r\n')
