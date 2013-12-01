@@ -135,10 +135,10 @@ class CommercialCutJob(object):
         # This is the command we will use to create the segment
         cmdline = [
                 '/usr/bin/avconv',
-                '-ss',
-                str(seek),
                 '-i',
                 self.filename,
+                '-ss',
+                str(seek),
                 '-t',
                 str(dur),
                 '-vcodec',
