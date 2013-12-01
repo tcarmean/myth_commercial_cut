@@ -23,5 +23,5 @@ http://reubencrane.com/blog/mythtv-commercial-cut-script/
 How to call this script as a UserJob:
 
 ```
-/path/to/myth_commercial_cut.py %DIR% %FILE% %CHANID% %STARTTIME%
+/path/to/myth_commercial_cut.py %DIR% %FILE% %CHANID% %STARTTIMEUTC%
 ```
