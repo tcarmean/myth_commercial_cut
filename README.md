@@ -3,7 +3,7 @@ myth_commercial_cut
 
 Cut commercials from a MythTV Recording and Transcode
 
-This is a python take of the script created by Reuben Crane:
+This is a python take on the script created by Reuben Crane:
 
 http://reubencrane.com/blog/mythtv-commercial-cut-script/
 
