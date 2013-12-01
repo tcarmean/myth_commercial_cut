@@ -136,9 +136,9 @@ class CommercialCutJob(object):
         path, fn = os.path.split(self.filename)
         self.temp_dir = '/tmp/' + fn[:-4]
 
-        if not os.path.exists(temp_dir):
+        if not os.path.exists(self.temp_dir):
             # create the directory that is named for the recording
-            os.makedirs(temp_dir)
+            os.makedirs(self.temp_dir)
         tf = fn[:-4] + '-' + str(i) + '.mpg'
         temp_file = os.path.join(self.temp_dir,tf)
         self.segments.append(temp_file)
