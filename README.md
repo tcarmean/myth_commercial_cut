@@ -30,6 +30,8 @@ How to call this script as a UserJob:
 Task List:
 
 - [x] Pull needed metadata from the database
+- [ ] Use avconv to export a temp file that inserts a key frame at each cut point (convert cut points to time indices and store in a list)
+- [ ] Use HandBrakeCLI --start-at frame:### --stop-at frame:### to create segments
 - [ ] Check that the cutlist has actually be generated
 - [x] Create working directory for transient files
 - [x] Remove working directory and transient files when done
