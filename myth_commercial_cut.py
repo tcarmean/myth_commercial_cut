@@ -112,16 +112,16 @@ class CommercialCutJob(object):
     def cutCommercials(self):
         print('In CommercialCutJob.cutCommercials\r\n')
         for i in range(len(self.cutlist)):
-            seek = 0.0
-            dur = 0.0
+            start = 0.0
+            stop = 0.0
             if self.cutlist[i][0] == 1:
-                seek = Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
-                dur = (Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)) - Decimal(seek)
-                seek = ceil(seek * 1000) / 1000.0
-                dur = ceil(seek * 1000) / 1000.0
-                self._createSegment(seek, dur, i)
+                start = Decimal(self.cutlist[i][1]) / Decimal(self.fps) * Decimal(1000)
+                stop = Decimal(self.cutlist[i+1][1]) / Decimal(self.fps) * Decimal(1000)
+                start = ceil(start * 1000) / 1000.0
+                stop = ceil(stop * 1000) / 1000.0
+                self._createSegment(start, stop, i)
 
-    def _createSegment(self, seek, dur, i):
+    def _createSegment(self, start, stop, i):
         print('In CommercialCutJob._createSegment\r\n')
         path, fn = os.path.split(self.filename)
         self.temp_dir = '/tmp/' + fn[:-4]
@@ -129,23 +129,24 @@ class CommercialCutJob(object):
         if not os.path.exists(self.temp_dir):
             # create the directory that is named for the recording
             os.makedirs(self.temp_dir)
-        tf = fn[:-4] + '-' + str(i) + '.mpg'
+        tf = fn[:-4] + '-' + str(i) + '.mkv'
         temp_file = os.path.join(self.temp_dir,tf)
         self.segments.append(temp_file)
         # This is the command we will use to create the segment
         cmdline = [
-                '/usr/bin/avconv',
+                '/usr/bin/HandBrakeCLI',
                 '-i',
                 self.filename,
-                '-ss',
-                str(seek),
-                '-t',
-                str(dur),
-                '-vcodec',
-                'copy',
-                '-acodec',
-                'copy',
-                temp_file
+                '--preset',
+                'iPod',
+                '--start-at',
+                str(start),
+                '--stop-at',
+                str(stop),
+                '-o',
+                temp_file,
+                '-f',
+                'mkv'
                 ]
         try:
             #stuff
@@ -245,8 +246,8 @@ if __name__ == "__main__":
     starttime = sys.argv[4]
     ccj = CommercialCutJob(filename, chanid, starttime)
     ccj.cutCommercials()
-    ccj.printSegments()
+#    ccj.printSegments()
     ccj.transcodeSegments()
     ccj.printSegments()
-    ccj.mergeSegments()
+#    ccj.mergeSegments()
 #    ccj.cleanup()
